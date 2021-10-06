@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -114,9 +117,25 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<UserDto> getUsers() {
-		List<UserEntity> listUserEntity = (List<UserEntity>) userRepository.findAll();
-		return null;
+	public List<UserDto> getUsers(int page, int limit) {
+		if(page > 0) {
+			page--;
+		}
+		
+		List<UserDto> usersDto = new ArrayList<>();
+		
+		Pageable pageableRequest = PageRequest.of(page, limit);
+		
+		Page<UserEntity> usersPage = userRepository.findAll(pageableRequest);
+		
+		List<UserEntity> usersEntityList = usersPage.getContent();
+		usersEntityList.forEach(user -> {
+			UserDto userDto = new UserDto();
+			BeanUtils.copyProperties(user, userDto);
+			usersDto.add(userDto);
+		});
+		
+		return usersDto;  
 	}
 	
 	

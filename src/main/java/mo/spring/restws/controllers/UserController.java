@@ -1,5 +1,6 @@
 package mo.spring.restws.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import mo.spring.restws.exceptions.UserException;
@@ -43,10 +45,18 @@ public class UserController {
 	}
 	
 	@GetMapping
-	public String getUsers() {
-		List<UserDto> users = userService.getUsers();
+	public List<UserResponse> getAllUsers(@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="limit", defaultValue="15") int limit) {
+		List<UserResponse> usersResponse = new ArrayList<>();
+		
+		List<UserDto> users = userService.getUsers(page, limit);
+		
+		users.forEach(user -> {
+			UserResponse userResponse = new UserResponse();
+			BeanUtils.copyProperties(user, userResponse);
+			usersResponse.add(userResponse);
+		});
 		 
-		return "getUsers() was called";
+		return usersResponse;
 	}
 	
 	//@PostMapping(consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE) /*nakhd request as XML o nred response as XML*/
