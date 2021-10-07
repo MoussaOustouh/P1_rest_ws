@@ -8,24 +8,24 @@ import javax.validation.constraints.Size;
 
 public class UserRequest {
 	
-	@NotNull(message = "Must not be null")
-	@NotBlank(message = "Firstname must not be empty")
-	@Size(min = 3, message = "Must contain 3 chars at least")
+	@NotNull(message = "'firstname' is required")
+	@NotBlank(message = "'firstname' must not be empty")
+	@Size(min = 3, message = "'firsname' must contain 3 chars at least")
 	private String firstname;
 	
-	@NotNull(message = "Must not be null")
-	@NotBlank(message = "Lastname must not be empty")
-	@Size(min = 3, message = "Must contain 3 chars at least")
+	@NotNull(message = "'lastname' is required")
+	@NotBlank(message = "'lastname' must not be empty")
+	@Size(min = 3, message = "'lastname' must contain 3 chars at least")
 	private String lastname;
 	
-	@NotNull(message = "Must not be null")
-	@NotBlank(message = "Email must not be empty")
-	@Email(message = "Must be an email")
+	@NotNull(message = "'email' is required")
+	@NotBlank(message = "'email' must not be empty")
+	@Email(message = "'email' must be an email")
 	private String email;
 	
-	@NotNull(message = "Must not be null")
-	@NotEmpty(message = "Firstname must not be empty")
-	@Size(min = 8, message = "Must contain 8 chars at least")
+	@NotNull(message = "'password' is required")
+	@NotEmpty(message = "'password' must not be empty")
+	@Size(min = 8, message = "'password' must contain 8 chars at least")
 	private String password;
 	
 	public String getFirstname() {
