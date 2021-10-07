@@ -3,6 +3,8 @@ package mo.spring.restws.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,7 +63,7 @@ public class UserController {
 	
 	//@PostMapping(consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE) /*nakhd request as XML o nred response as XML*/
 	@PostMapping
-	public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) throws UserException {
+	public ResponseEntity<UserResponse> createUser(@RequestBody @Valid UserRequest userRequest) throws UserException {
 		if(userRequest.getFirstname().isEmpty()) {
 			throw new UserException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 		}
