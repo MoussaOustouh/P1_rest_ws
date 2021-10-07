@@ -4,6 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class UserRequest {
@@ -26,6 +27,7 @@ public class UserRequest {
 	@NotNull(message = "'password' is required")
 	@NotEmpty(message = "'password' must not be empty")
 	@Size(min = 8, message = "'password' must contain 8 chars at least")
+	@Pattern(regexp = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$", message = "'password' must contain (UpperCase, LowerCase, Number/SpecialChar and min 8 Chars)")
 	private String password;
 	
 	public String getFirstname() {
