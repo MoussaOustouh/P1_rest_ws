@@ -1,17 +1,45 @@
-package mo.spring.restws.shared.dto;
+package mo.spring.restws.entities;
 
 import java.io.Serializable;
 
-public class AddressDto implements Serializable{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import mo.spring.restws.shared.dto.UserDto;
+
+@Entity(name = "addresses")
+public class AddressEntity implements Serializable{
+	private static final long serialVersionUID = -7385214678307729725L;
 	
-	private static final long serialVersionUID = -6740982370310030520L;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
+	@Column(length = 30, nullable = false, unique = true)
+	private String addressId;
+	
+	@Column(length = 30, nullable = false)
 	private String city;
+
+	@Column(length = 30, nullable = false)
 	private String country;
+
+	@Column(length = 70, nullable = false)
 	private String street;
+
+	@Column(length = 11, nullable = false)
 	private String postal;
+
+	@Column(length = 20, nullable = false)
 	private String type;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")  
 	private UserDto user;
 	
 	public long getId() {
