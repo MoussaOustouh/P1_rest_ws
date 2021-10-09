@@ -1,13 +1,24 @@
-package mo.spring.restws.requests;
+package mo.spring.restws.shared.dto;
 
-public class AddressRequest {
+import java.io.Serializable;
+
+public class AddressDto implements Serializable{
 	
+	private static final long serialVersionUID = -6740982370310030520L;
+	
+	private long id;
 	private String city;
 	private String country;
 	private String street;
 	private String postal;
 	private String type;
-	
+	private UserDto user;
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getCity() {
 		return city;
 	}
@@ -37,5 +48,11 @@ public class AddressRequest {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public UserDto getUser() {
+		return user;
+	}
+	public void setUser(UserDto user) {
+		this.user = user;
 	}
 }
