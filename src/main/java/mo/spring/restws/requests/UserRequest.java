@@ -1,5 +1,7 @@
 package mo.spring.restws.requests;
 
+import java.util.List;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -30,6 +32,14 @@ public class UserRequest {
 	@Pattern(regexp = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$", message = "'password' must contain (UpperCase, LowerCase, Number/SpecialChar and min 8 Chars)")
 	private String password;
 	
+	private List<AddressRequest> adresses;
+	
+	public List<AddressRequest> getAdresses() {
+		return adresses;
+	}
+	public void setAdresses(List<AddressRequest> adresses) {
+		this.adresses = adresses;
+	}
 	public String getFirstname() {
 		return firstname;
 	}
