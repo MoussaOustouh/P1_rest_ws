@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -68,8 +69,11 @@ public class UserController {
 			throw new UserException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 		}
 		
-		UserDto userDto = new UserDto();
-		BeanUtils.copyProperties(userRequest, userDto);
+//		UserDto userDto = new UserDto();
+//		BeanUtils.copyProperties(userRequest, userDto);
+
+		ModelMapper modelMapper = new ModelMapper();
+		UserDto userDto = modelMapper.map(userRequest, UserDto.class);
 		
 		UserDto createdUser = userService.createUser(userDto);
 		
