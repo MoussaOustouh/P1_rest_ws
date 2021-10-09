@@ -32,13 +32,13 @@ public class UserRequest {
 	@Pattern(regexp = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$", message = "'password' must contain (UpperCase, LowerCase, Number/SpecialChar and min 8 Chars)")
 	private String password;
 	
-	private List<AddressRequest> adresses;
+	private List<AddressRequest> addresses;
 	
-	public List<AddressRequest> getAdresses() {
-		return adresses;
+	public List<AddressRequest> getAddresses() {
+		return addresses;
 	}
-	public void setAdresses(List<AddressRequest> adresses) {
-		this.adresses = adresses;
+	public void setAddresses(List<AddressRequest> addresses) {
+		this.addresses = addresses;
 	}
 	public String getFirstname() {
 		return firstname;
