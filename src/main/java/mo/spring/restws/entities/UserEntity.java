@@ -3,6 +3,7 @@ package mo.spring.restws.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class UserEntity implements Serializable{
 	@Column(nullable = false)
 	private Boolean emailVerificationStatus = false;
 	
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<AddressEntity> addresses;
 
 	public Long getId() {

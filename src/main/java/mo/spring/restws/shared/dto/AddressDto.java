@@ -7,6 +7,7 @@ public class AddressDto implements Serializable{
 	private static final long serialVersionUID = -6740982370310030520L;
 	
 	private long id;
+	private String addressId;
 	private String city;
 	private String country;
 	private String street;
@@ -55,5 +56,11 @@ public class AddressDto implements Serializable{
 	}
 	public void setUser(UserDto user) {
 		this.user = user;
+	}
+	public String getAddressId() {
+		return addressId;
+	}
+	public void setAddressId(String addressId) {
+		this.addressId = addressId;
 	}
 }

@@ -77,8 +77,9 @@ public class UserController {
 		
 		UserDto createdUser = userService.createUser(userDto);
 		
-		UserResponse userResponse = new UserResponse();
-		BeanUtils.copyProperties(createdUser, userResponse);
+//		UserResponse userResponse = new UserResponse();
+//		BeanUtils.copyProperties(createdUser, userResponse);
+		UserResponse userResponse = modelMapper.map(createdUser, UserResponse.class);
 		
 		return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
 	}

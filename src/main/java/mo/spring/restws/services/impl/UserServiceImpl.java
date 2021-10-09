@@ -1,8 +1,10 @@
 package mo.spring.restws.services.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import mo.spring.restws.entities.UserEntity;
 import mo.spring.restws.repositories.UserRepository;
 import mo.spring.restws.services.UserService;
 import mo.spring.restws.shared.Utils;
+import mo.spring.restws.shared.dto.AddressDto;
 import mo.spring.restws.shared.dto.UserDto;
 
 @Service
@@ -39,19 +42,30 @@ public class UserServiceImpl implements UserService{
 			throw new RuntimeException("User Already exists.");
 		}
 		
-		UserEntity userEntity = new UserEntity();
-		BeanUtils.copyProperties(userDto, userEntity);
+		for (int i = 0; i < userDto.getAddresses().size(); i++) {
+			 AddressDto addressDto = userDto.getAddresses().get(i);
+			 addressDto.setUser(userDto);
+			 addressDto.setAddressId(utils.generateStringId(20));
+			 userDto.getAddresses().set(i, addressDto);
+		}
+
+		
+//		UserEntity userEntity = new UserEntity();
+//		BeanUtils.copyProperties(userDto, userEntity);
+		
+		ModelMapper modelMapper = new ModelMapper();
+		UserEntity userEntity = modelMapper.map(userDto, UserEntity.class);
 		
 		userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
 		
-		
-		userEntity.setUserId(utils.generateUserId(10));
+		userEntity.setUserId(utils.generateStringId(10));
 		
 		UserEntity userEntity1 = userRepository.save(userEntity);
 		
-		UserDto userDto1 = new UserDto();
-		BeanUtils.copyProperties(userEntity1, userDto1);
-
+//		UserDto userDto1 = new UserDto();
+//		BeanUtils.copyProperties(userEntity1, userDto1);
+		UserDto userDto1 = modelMapper.map(userEntity1, UserDto.class);
+		
 		return userDto1;
 	}
 
