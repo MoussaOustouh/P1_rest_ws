@@ -147,13 +147,38 @@ public class UserServiceImpl implements UserService{
 		
 		List<UserEntity> usersEntityList = usersPage.getContent();
 		usersEntityList.forEach(user -> {
-			UserDto userDto = new UserDto();
-			BeanUtils.copyProperties(user, userDto);
+//			UserDto userDto = new UserDto();
+//			BeanUtils.copyProperties(user, userDto);
+			ModelMapper modelMapper = new ModelMapper();
+			UserDto userDto = modelMapper.map(user, UserDto.class);
 			usersDto.add(userDto);
 		});
 		
 		return usersDto;  
 	}
 	
-	
+
+	@Override
+	public List<UserDto> getUsers(int page, int limit, String search) {
+		if(page > 0) {
+			page--;
+		}
+		
+		List<UserDto> usersDto = new ArrayList<>();
+		
+		Pageable pageableRequest = PageRequest.of(page, limit);
+		
+		Page<UserEntity> usersPage = userRepository.findAllUserByCriteria(pageableRequest, search);
+		
+		List<UserEntity> usersEntityList = usersPage.getContent();
+		usersEntityList.forEach(user -> {
+//			UserDto userDto = new UserDto();
+//			BeanUtils.copyProperties(user, userDto);
+			ModelMapper modelMapper = new ModelMapper();
+			UserDto userDto = modelMapper.map(user, UserDto.class);
+			usersDto.add(userDto);
+		});
+		
+		return usersDto;  
+	}
 }

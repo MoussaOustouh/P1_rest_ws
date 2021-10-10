@@ -54,8 +54,35 @@ public class UserController {
 		List<UserDto> users = userService.getUsers(page, limit);
 		
 		users.forEach(user -> {
-			UserResponse userResponse = new UserResponse();
-			BeanUtils.copyProperties(user, userResponse);
+//			UserResponse userResponse = new UserResponse();
+//			BeanUtils.copyProperties(user, userResponse);
+			ModelMapper modelMapper = new ModelMapper();
+			UserResponse userResponse = modelMapper.map(user, UserResponse.class);
+			
+			usersResponse.add(userResponse);
+		});
+		 
+		return usersResponse;
+	}
+	
+
+	
+	@GetMapping(path = "/search")
+	public List<UserResponse> getAllUsersSearch(@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="limit", defaultValue="15") int limit, @RequestParam(value = "search", defaultValue = "") String search) {
+		List<UserResponse> usersResponse = new ArrayList<>();
+		
+		List<UserDto> users;
+		if (search.isEmpty()) {
+			users = userService.getUsers(page, limit);
+		}
+		else {
+			users = userService.getUsers(page, limit, search);
+		}
+		
+		users.forEach(user -> {
+			ModelMapper modelMapper = new ModelMapper();
+			UserResponse userResponse = modelMapper.map(user, UserResponse.class);
+			
 			usersResponse.add(userResponse);
 		});
 		 
