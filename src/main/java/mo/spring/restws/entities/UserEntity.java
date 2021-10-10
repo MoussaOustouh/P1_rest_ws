@@ -10,21 +10,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity(name = "users")
-public class UserEntity implements Serializable{
+public class UserEntity implements Serializable {
 	private static final long serialVersionUID = -6232487771590625751L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(nullable = false, unique = true)
 	private String userId;
-	
+
 	@Column(nullable = false, length = 50)
 	private String firstname;
-	
+
 	@Column(nullable = false, length = 50)
 	private String lastname;
 
@@ -33,15 +34,18 @@ public class UserEntity implements Serializable{
 
 	@Column(nullable = false)
 	private String encryptedPassword;
-	
+
 	@Column(nullable = true, length = 50)
 	private String emailVerificationToken;
-	
+
 	@Column(nullable = false)
 	private Boolean emailVerificationStatus = false;
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<AddressEntity> addresses;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private ContactEntity contact;
 
 	public Long getId() {
 		return id;
@@ -113,5 +117,13 @@ public class UserEntity implements Serializable{
 
 	public void setAddresses(List<AddressEntity> addresses) {
 		this.addresses = addresses;
+	}
+
+	public ContactEntity getContact() {
+		return contact;
+	}
+
+	public void setContact(ContactEntity contact) {
+		this.contact = contact;
 	}
 }
