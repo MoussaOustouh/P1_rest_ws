@@ -1,14 +1,18 @@
 package mo.spring.restws.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -46,6 +50,9 @@ public class UserEntity implements Serializable {
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private ContactEntity contact;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "users")
+	private Set<GroupEntity> groups = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -125,5 +132,13 @@ public class UserEntity implements Serializable {
 
 	public void setContact(ContactEntity contact) {
 		this.contact = contact;
+	}
+
+	public Set<GroupEntity> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(Set<GroupEntity> groups) {
+		this.groups = groups;
 	}
 }
