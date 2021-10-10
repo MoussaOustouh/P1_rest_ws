@@ -17,6 +17,8 @@ public class UserDto implements Serializable{
 	private Boolean emailVerificationStatus = false;
 	private List<AddressDto> addresses;
 	
+	private ContactDto contact;
+	
 	public Long getId() {
 		return id;
 	}
@@ -73,5 +75,17 @@ public class UserDto implements Serializable{
 	}
 	public void setAddresses(List<AddressDto> addresses) {
 		this.addresses = addresses;
+	}
+	public Boolean getEmailVerificationStatus() {
+		return emailVerificationStatus;
+	}
+	public void setEmailVerificationStatus(Boolean emailVerificationStatus) {
+		this.emailVerificationStatus = emailVerificationStatus;
+	}
+	public ContactDto getContact() {
+		return contact;
+	}
+	public void setContact(ContactDto contact) {
+		this.contact = contact;
 	}
 }
