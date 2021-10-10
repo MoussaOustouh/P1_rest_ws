@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService{
 	
 
 	@Override
-	public List<UserDto> getUsers(int page, int limit, String search) {
+	public List<UserDto> getUsers(int page, int limit, String search, int status) {
 		if(page > 0) {
 			page--;
 		}
@@ -168,7 +168,7 @@ public class UserServiceImpl implements UserService{
 		
 		Pageable pageableRequest = PageRequest.of(page, limit);
 		
-		Page<UserEntity> usersPage = userRepository.findAllUserByCriteria(pageableRequest, search);
+		Page<UserEntity> usersPage = userRepository.findAllUserByCriteria(pageableRequest, search, status);
 		
 		List<UserEntity> usersEntityList = usersPage.getContent();
 		usersEntityList.forEach(user -> {

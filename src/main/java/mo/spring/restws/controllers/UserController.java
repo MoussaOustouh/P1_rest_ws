@@ -68,7 +68,7 @@ public class UserController {
 
 	
 	@GetMapping(path = "/search")
-	public List<UserResponse> getAllUsersSearch(@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="limit", defaultValue="15") int limit, @RequestParam(value = "search", defaultValue = "") String search) {
+	public List<UserResponse> getAllUsersSearch(@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="limit", defaultValue="15") int limit, @RequestParam(value = "search", defaultValue = "") String search, @RequestParam(value = "status", defaultValue = "1") int status) {
 		List<UserResponse> usersResponse = new ArrayList<>();
 		
 		List<UserDto> users;
@@ -76,7 +76,7 @@ public class UserController {
 			users = userService.getUsers(page, limit);
 		}
 		else {
-			users = userService.getUsers(page, limit, search);
+			users = userService.getUsers(page, limit, search, status);
 		}
 		
 		users.forEach(user -> {
