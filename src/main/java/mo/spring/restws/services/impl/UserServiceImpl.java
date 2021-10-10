@@ -48,6 +48,9 @@ public class UserServiceImpl implements UserService{
 			 addressDto.setAddressId(utils.generateStringId(20));
 			 userDto.getAddresses().set(i, addressDto);
 		}
+		
+		userDto.getContact().setContactId(utils.generateStringId(30));
+		userDto.getContact().setUser(userDto);
 
 		
 //		UserEntity userEntity = new UserEntity();
@@ -58,7 +61,7 @@ public class UserServiceImpl implements UserService{
 		
 		userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
 		
-		userEntity.setUserId(utils.generateStringId(10));
+		userEntity.setUserId(utils.generateStringId(30));
 		
 		UserEntity userEntity1 = userRepository.save(userEntity);
 		

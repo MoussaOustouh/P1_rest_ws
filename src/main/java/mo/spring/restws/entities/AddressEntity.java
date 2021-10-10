@@ -10,16 +10,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "addresses")
-public class AddressEntity implements Serializable{
+public class AddressEntity implements Serializable {
 	private static final long serialVersionUID = -7385214678307729725L;
-	
+
 	@Id
 	@GeneratedValue
 	private Long id;
-	
+
 	@Column(length = 30, nullable = false, unique = true)
 	private String addressId;
-	
+
 	@Column(length = 30, nullable = false)
 	private String city;
 
@@ -34,16 +34,16 @@ public class AddressEntity implements Serializable{
 
 	@Column(length = 20, nullable = false)
 	private String type;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "user_id")  
+	@JoinColumn(name = "user_id")
 	private UserEntity user;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
