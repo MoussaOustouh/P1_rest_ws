@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import mo.spring.restws.entities.UserEntity;
@@ -18,6 +19,9 @@ public interface UserRepository extends PagingAndSortingRepository<UserEntity, L
 	@Query(value = "SELECTE * FROM users", nativeQuery = true)
 	Page<UserEntity> findAllUser(Pageable pageableRequest);
 	
-	@Query(value = "SELECT * FROM users u WHERE (u.firstname = ?1 OR u.lastname = ?1) AND u.email_verification_status = ?2", nativeQuery = true)
-	Page<UserEntity> findAllUserByCriteria(Pageable pageableRequest, String search, int status);
+//	@Query(value = "SELECT * FROM users u WHERE (u.firstname = ?1 OR u.lastname = ?1) AND u.email_verification_status = ?2", nativeQuery = true)
+//	Page<UserEntity> findAllUserByCriteria(Pageable pageableRequest, String search, int status);
+
+	@Query(value = "SELECT * FROM users u WHERE (u.firstname = :search OR u.lastname = :search) AND u.email_verification_status = :status", nativeQuery = true)
+	Page<UserEntity> findAllUserByCriteria(Pageable pageableRequest, @Param("search") String search, @Param("status") int status);
 }
