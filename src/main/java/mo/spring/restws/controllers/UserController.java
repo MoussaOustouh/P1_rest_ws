@@ -48,7 +48,7 @@ public class UserController {
 	}
 	
 	@GetMapping
-	public List<UserResponse> getAllUsers(@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="limit", defaultValue="15") int limit) {
+	public ResponseEntity<List<UserResponse>> getAllUsers(@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="limit", defaultValue="15") int limit) {
 		List<UserResponse> usersResponse = new ArrayList<>();
 		
 		List<UserDto> users = userService.getUsers(page, limit);
@@ -62,13 +62,13 @@ public class UserController {
 			usersResponse.add(userResponse);
 		});
 		 
-		return usersResponse;
+		return new ResponseEntity<>(usersResponse, HttpStatus.OK);
 	}
 	
 
 	
 	@GetMapping(path = "/search")
-	public List<UserResponse> getAllUsersSearch(@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="limit", defaultValue="15") int limit, @RequestParam(value = "search", defaultValue = "") String search, @RequestParam(value = "status", defaultValue = "1") int status) {
+	public ResponseEntity<List<UserResponse>> getAllUsersSearch(@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="limit", defaultValue="15") int limit, @RequestParam(value = "search", defaultValue = "") String search, @RequestParam(value = "status", defaultValue = "1") int status) {
 		List<UserResponse> usersResponse = new ArrayList<>();
 		
 		List<UserDto> users;
@@ -86,7 +86,7 @@ public class UserController {
 			usersResponse.add(userResponse);
 		});
 		 
-		return usersResponse;
+		return new ResponseEntity<>(usersResponse, HttpStatus.OK);
 	}
 	
 	//@PostMapping(consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE) /*nakhd request as XML o nred response as XML*/
