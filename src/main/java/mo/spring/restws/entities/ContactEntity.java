@@ -8,9 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-@Entity(name = "contacts")
+@Entity
+@Table(name = "contacts")
 public class ContactEntity implements Serializable {
 	private static final long serialVersionUID = 395262324644695637L;
 

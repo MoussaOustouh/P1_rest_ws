@@ -13,8 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-@Entity(name = "groups")
+@Entity
+@Table(name = "groups")
 public class GroupEntity implements Serializable {
 	private static final long serialVersionUID = 5870584970067030746L;
 
